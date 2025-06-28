@@ -1,91 +1,107 @@
-CodexIQ: AI-Powered Code Reviewer
-CodexIQ is a full-stack web application designed to help developers improve their code quality by providing AI-powered code reviews. It supports reviewing both pasted code snippets and code fetched directly from GitHub URLs. The application features a robust user authentication system to manage access and provides a modern, customizable user interface with dark mode capabilities.
+🔍 CodexIQ: AI-Powered Code Reviewer
+CodexIQ is a full-stack web application that helps developers improve code quality by providing AI-powered code reviews. Users can review both pasted code snippets and code fetched from GitHub URLs. It includes secure user authentication and a modern, responsive UI.
 
 ✨ Features
-AI Code Review: Get instant feedback on your code for bugs, security vulnerabilities, performance issues, readability, and best practices using OpenAI's powerful language models.
+AI Code Review
+Instantly receive feedback on:
 
-GitHub Integration: Review code directly from public GitHub repository file URLs.
+Bugs
 
-User Authentication: Secure user registration and login system using JWT (JSON Web Tokens).
+Security vulnerabilities
 
-Protected Routes: API endpoints are protected, ensuring only authenticated users can access code review features.
+Performance issues
 
-Themeable UI: Modern and responsive user interface built with React and styled with Tailwind CSS, featuring customizable themes via DaisyUI, including a dark mode.
+Readability
 
-Language Selection: Choose the programming language for more accurate AI reviews.
+Best practices
+Powered by OpenAI.
+
+GitHub Integration
+Review code directly from public GitHub repository file URLs.
+
+User Authentication
+Secure registration and login system using JWT (JSON Web Tokens).
+
+Protected Routes
+Code review APIs are protected—only authenticated users can access them.
+
+Language Selection
+Specify the programming language to improve the accuracy of AI reviews.
 
 🚀 Technologies Used
-Backend:
+🔧 Backend
+Node.js & Express.js – REST API server
 
-Node.js & Express.js: For building the RESTful API server.
+MongoDB & Mongoose – NoSQL database with schema validation
 
-MongoDB & Mongoose: NoSQL database for storing user data, with Mongoose for elegant MongoDB object modeling.
+bcryptjs – Password hashing
 
-bcryptjs: For secure password hashing.
+jsonwebtoken – JWT-based authentication
 
-jsonwebtoken (JWT): For user authentication and authorization.
+dotenv – Environment variable management
 
-dotenv: For managing environment variables.
+openai – OpenAI API integration
 
-openai: Node.js client for interacting with the OpenAI API.
+fetch/axios – HTTP requests
 
-axios / fetch: For making HTTP requests (e.g., to fetch GitHub content).
+cors – Enable CORS for frontend-backend communication
 
-cors: Middleware to enable Cross-Origin Resource Sharing.
+🎨 Frontend
+React – Component-based UI
 
-Frontend:
+Vite – Fast bundler and development server
 
-React: A JavaScript library for building user interfaces.
+Tailwind CSS – Utility-first CSS framework
 
-Vite: A fast build tool for modern web projects.
+react-router-dom – Routing
 
-Tailwind CSS: A utility-first CSS framework for rapid UI development.
-
-DaisyUI: A Tailwind CSS component library that simplifies theme management and provides ready-made, styled components.
-
-react-router-dom: For client-side routing.
-
-react-markdown & remark-gfm: For rendering AI review results in Markdown format.
+react-markdown + remark-gfm – Render markdown feedback from OpenAI
 
 ⚙️ Setup Instructions
-Prerequisites
-Node.js (v18 or higher recommended)
+📦 Prerequisites
+Node.js (v18+)
 
-npm (Node Package Manager)
+npm
 
-MongoDB installed and running locally, or access to a MongoDB Atlas cluster.
+MongoDB (local or MongoDB Atlas)
 
-An OpenAI API Key.
+OpenAI API Key
 
-A GitHub Personal Access Token (PAT) with repo scope (for reviewing private repos) or no specific scope (for public repos, though a PAT is recommended for higher rate limits).
+GitHub Personal Access Token (PAT)
 
-1. Clone the Repository
+1️⃣ Clone the Repository
+bash
+Copy
+Edit
 git clone <your-repository-url>
-cd CodexIQ # Or whatever your project folder is called
-
-2. Backend Setup
+cd CodexIQ
+2️⃣ Backend Setup
+bash
+Copy
+Edit
 cd devmate-backend
 npm install
-
-Environment Variables (.env)
-Create a .env file in the devmate-backend directory with the following content. Replace the placeholder values with your actual credentials and a strong secret key.
-
+Create .env file in devmate-backend/:
+env
+Copy
+Edit
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/codexiq_db # Or your MongoDB Atlas connection string
+MONGO_URI=mongodb://localhost:27017/codexiq_db
 JWT_SECRET=YOUR_SUPER_SECURE_RANDOM_JWT_SECRET_KEY_HERE
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 GITHUB_ACCESS_TOKEN=YOUR_GITHUB_PERSONAL_ACCESS_TOKEN
-
-3. Frontend Setup
+3️⃣ Frontend Setup
+bash
+Copy
+Edit
 cd ../devmate-frontend
 npm install
-
-Tailwind CSS and DaisyUI Configuration
-Ensure your tailwind.config.js in devmate-frontend is set up to include DaisyUI:
-
+Configure Tailwind in tailwind.config.js:
+js
+Copy
+Edit
 // devmate-frontend/tailwind.config.js
 
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -94,71 +110,68 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["light", "dark", "corporate", "synthwave", "dracula", "night"], // Add/remove themes as desired
-  },
+  plugins: [],
 }
-
-And src/index.css should correctly import Tailwind's directives:
-
-/* devmate-frontend/src/index.css */
-
+Add Tailwind to src/index.css:
+css
+Copy
+Edit
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Add any other global CSS here */
-
 ▶️ Running the Application
-You'll need three separate terminal windows/tabs to run the database, backend, and frontend concurrently.
+Open three terminal tabs:
 
-1. Start MongoDB (if running locally)
-Open a new terminal and run your MongoDB daemon. If it's installed as a service, it might already be running.
-
+1. Start MongoDB
+bash
+Copy
+Edit
 mongod
-# Or if you have a specific data path:
-# mongod --dbpath /path/to/your/mongo/data
+Or:
 
-Keep this terminal open.
-
-2. Start the Backend Server
-Open a new terminal, navigate to the devmate-backend directory, and start the server:
-
+bash
+Copy
+Edit
+mongod --dbpath /path/to/mongo/data
+2. Start Backend Server
+bash
+Copy
+Edit
 cd devmate-backend
 node server.js
+You should see:
 
-You should see "MongoDB connected successfully!" and "Server running on port 5000". Keep this terminal open.
-
-3. Start the Frontend Development Server
-Open a new terminal, navigate to the devmate-frontend directory, and start the development server:
-
+arduino
+Copy
+Edit
+MongoDB connected successfully!
+Server running on port 5000
+3. Start Frontend Server
+bash
+Copy
+Edit
 cd devmate-frontend
 npm run dev
+The terminal will show a URL (e.g., http://localhost:5173).
 
-The terminal will provide a local URL (e.g., http://localhost:5173).
+🖥️ Usage Guide
+Access App: Open the frontend URL in your browser.
 
-🖥️ Usage
-Access the Application: Open your web browser and navigate to the URL provided by the frontend server (e.g., http://localhost:5173).
+Register: Create a user account.
 
-Authentication: You will be redirected to the Login/Register page.
-
-Register: Create a new account with a unique username, email, and password.
-
-Login: Use your registered credentials to log in. Upon successful login, you will be redirected to the main Code Reviewer interface.
+Login: Use your credentials to access the reviewer.
 
 Code Review:
 
-Paste Code: Enter your code snippet directly into the provided textarea.
+Paste code in the editor, OR
 
-GitHub URL: Paste a raw GitHub file URL (e.g., https://raw.githubusercontent.com/owner/repo/branch/path/to/file.js) into the GitHub URL input.
+Paste a raw GitHub file URL.
 
-Select Language: Choose the programming language of the code for more accurate AI review.
+Select the language.
 
-Click "Get AI Review" to receive feedback.
+Click "Get AI Review".
 
-Logout: A "Logout" button will be available on the Code Editor page. Clicking it will clear your session and redirect you back to the authentication page.
+Review: View detailed feedback in a clean markdown-styled output.
 
-Theme Toggle: If implemented, a theme toggle button will allow you to switch between different DaisyUI themes (e.g., light, dark).
+Logout: Click the Logout button to end your session.
 
-Enjoy using CodexIQ to enhance your code!
